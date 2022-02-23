@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tasks")
@@ -19,16 +20,17 @@ public class TaskModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
+    @NotNull
     private String descripton;
 
-
     @Column(nullable = false)
+    @NotNull
     @Enumerated(EnumType.STRING)
     private PropertyEnum property;
 
-
     @Column(nullable = false)
+    @NotNull
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
 

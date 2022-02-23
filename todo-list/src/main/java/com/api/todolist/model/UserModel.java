@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -18,15 +19,18 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column
+    @NotNull
+    private String name;
+
+
+    @Column(unique = true, name = "email")
+    @NotNull
+    @Email
     private String login;
 
     @Column
+    @NotNull
     private String password;
-
-    @Column
-    @Email
-    private String email;
-
 
 }

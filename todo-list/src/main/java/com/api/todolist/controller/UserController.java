@@ -14,17 +14,16 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/usuario")
+@RequestMapping("api/user")
 @AllArgsConstructor
 @Slf4j
 public class UserController {
 
      UserService userService;
      UserRepository userRepository;
-    PasswordEncoder encoder;
+     PasswordEncoder encoder;
 
-
-    @PostMapping("/cadastrar")
+    @PostMapping("/create")
     public UserModel createUser (@RequestBody UserModel userModel){
         userModel.setPassword(encoder.encode(userModel.getPassword()));
         return userService.createUser(userModel);
@@ -35,5 +34,4 @@ public class UserController {
         return userService.listAllUsers();
     }
 
-    //
 }
