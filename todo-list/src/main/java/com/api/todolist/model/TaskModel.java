@@ -1,5 +1,7 @@
 package com.api.todolist.model;
 
+import com.api.todolist.enums.PropertyEnum;
+import com.api.todolist.enums.StatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,16 +19,18 @@ public class TaskModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String descripton;
 
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @Column
-    private EnumProperty property;
+    private PropertyEnum property;
 
-    @Column
-    private Boolean status;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
 
 
 }

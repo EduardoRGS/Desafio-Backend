@@ -1,5 +1,6 @@
 package com.api.todolist.service;
 
+import com.api.todolist.enums.StatusEnum;
 import lombok.AllArgsConstructor;
 import com.api.todolist.model.TaskModel;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,10 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
+    public List<TaskModel> listTasksPending() {
+        return taskRepository.findByStatus(StatusEnum.PENDENTE);
+    }
+
     public ResponseEntity<TaskModel> updateTaskById (TaskModel taskModel, Long id){
         return taskRepository.findById(id)
                 .map(taskModelToUpdate -> {
@@ -33,6 +38,15 @@ public class TaskService {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
+    public ResponseEntity<TaskModel> updateTaskcompleted (Long id) {
+        return taskRepository.findById(id)
+                .map(taskDone -> {
+                    taskDone.setStatus(StatusEnum.CONCLUIDA);
+                    TaskModel update = taskRepository.save(taskDone);
+                    return ResponseEntity.ok().body(update);
+                }).orElse(ResponseEntity.notFound().build());
+    }
+
     public ResponseEntity<Object> deleteById (Long id){
         return taskRepository.findById(id)
                 .map(taskModelToDelete -> {
@@ -40,4 +54,6 @@ public class TaskService {
                     return ResponseEntity.noContent().build();
                 }).orElse(ResponseEntity.notFound().build());
     }
+
+
 }

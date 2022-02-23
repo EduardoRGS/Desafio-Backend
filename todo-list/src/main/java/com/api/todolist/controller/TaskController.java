@@ -11,32 +11,39 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/usuario/task")
+@RequestMapping("api/")
 @Slf4j
 public class TaskController {
 
     TaskService taskService;
 
-    @PostMapping
+    @PostMapping("tasks/create")
     public TaskModel createTask (@RequestBody TaskModel taskModel){
         return taskService.createTask(taskModel);
     }
 
-    @GetMapping
+    @GetMapping("tasks")
     public List<TaskModel> getAllTasks(){
         return taskService.listAllTasks();
     }
 
-    @PutMapping
+    @GetMapping("tasks/pendings")
+    public List<TaskModel> getAllTasksPending(){
+        return taskService.listTasksPending();
+    }
+
+    @PutMapping("tasks/update/{id}")
     public ResponseEntity<TaskModel> updateTaskById (@PathVariable (value = "id") Long id,
                                                      @RequestBody TaskModel taskModel){
         return taskService.updateTaskById(taskModel,id);
     }
 
-    //Colocar um @PetMappinng para mudar o status do tarefa ou
-    // mudar a prioridade
+    @PatchMapping("tasks/updateDone/{id}")
+    public ResponseEntity<TaskModel> updateTaskDone (@PathVariable ( value = "id") Long id){
+        return taskService.updateTaskcompleted(id);
+    }
 
-    @DeleteMapping
+    @DeleteMapping("tasks/{id}")
     public ResponseEntity<Object> deleteTaskById (@PathVariable (value = "id") Long id){
         return taskService.deleteById(id);
     }
