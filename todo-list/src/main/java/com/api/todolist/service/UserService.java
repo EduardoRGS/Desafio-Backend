@@ -1,6 +1,6 @@
 package com.api.todolist.service;
 
-//import com.api.todolist.date.UserDate;
+import com.api.todolist.date.UserDate;
 import lombok.AllArgsConstructor;
 import com.api.todolist.model.UserModel;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserService implements  UserDetailsService{
 
     private final UserRepository userRepository;
 
@@ -26,5 +26,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
-   //
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<UserModel> user = userRepository.findByLogin(username);
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("Usuário [" + username + "] não encontrado");
+        }
+
+        return new UserDate(user);
+    }
 }
