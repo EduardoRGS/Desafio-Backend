@@ -5,10 +5,10 @@ API REST TO-DO Gerenciador de tarefas
 -``Java 11``
 -``Spring Boot``
 -``Spring Security``
--``Sprng Web``
+-``Spring Web``
 -``Spring JPA``
 -``Swagger (Springfox)``
--``Postresql``
+-``Postgresql``
 -``Postman``
 
 ## Baixe todas as dependências do meven que estão no pom.xml
