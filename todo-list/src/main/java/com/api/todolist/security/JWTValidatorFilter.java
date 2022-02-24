@@ -28,19 +28,19 @@ public class JWTValidatorFilter extends BasicAuthenticationFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws IOException, ServletException {
 
-        String atributo = request.getHeader(HEADER_ATRIBUTO);
+        String atribute = request.getHeader(HEADER_ATRIBUTO);
 
-        if (atributo == null) {
+        if (atribute == null) {
             chain.doFilter(request, response);
             return;
         }
 
-        if (!atributo.startsWith(ATRIBUTO_PREFIXO)) {
+        if (!atribute.startsWith(ATRIBUTO_PREFIXO)) {
             chain.doFilter(request, response);
             return;
         }
 
-        String token = atributo.replace(ATRIBUTO_PREFIXO, "");
+        String token = atribute.replace(ATRIBUTO_PREFIXO, "");
         UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationToken(token);
 
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
